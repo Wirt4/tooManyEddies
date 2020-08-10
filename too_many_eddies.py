@@ -4,21 +4,38 @@ from settings import Settings
 from frasier import Frasier
 from laser import Laser
 from eddie import Eddie
+from stats import Stats
+from time import sleep
 
 class TooManyEddies:
-    'overall class to manage assets and behavior'
+    """overall class to manage assets and behavior"""
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-        #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
+
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+
+        #self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        #self.settings.screen_width = self.screen.get_rect().width
+        #self.settings.screen_height = self.screen.get_rect().height
+
         pygame.display.set_caption("Too Many Eddies")
+        self.stats = Stats(self)
         self.frasier = Frasier(self)
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
+
+    def _frasier_hit(self):
+        if self.stats.frasiers_left > 0:
+            self.stats.frasiers_left -= 1
+            self.eddies.empty()
+            self.lasers.empty()
+            self._create_horde()
+            self.frasier.center_frasier()
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _create_horde(self):
         eddie = Eddie(self)
@@ -52,8 +69,10 @@ class TooManyEddies:
             self.frasier.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.frasier.moving_left = True
-        elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
-            sys.exit()
+        else:
+            self._quit_game(event)
+        #elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+            #sys.exit()
 
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -65,11 +84,18 @@ class TooManyEddies:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self.check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self.check_keyup_events(event)
 
+    def _eddie_at_bottom(self):
+        """Checks if eddie has reached the bottom of the screen and will RUIN Frasier's new persian rug"""
+        screen_rect = self.screen.get_rect()
+        for eddie in self.eddies.sprites():
+            if eddie.rect.bottom >= screen_rect.bottom:
+                self._frasier_hit()
+                break
 
     def update_screen(self):
         """Draws Frasier and the background"""
@@ -95,24 +121,47 @@ class TooManyEddies:
     def run_game(self):
         """primary game loop"""
         while True:
-            self.check_events()
-            self.frasier.update()
+            if self.stats.game_active == True:
+                self.check_events()
+                self.frasier.update()
+                self.lasers.update()
+                self.update_lasers()
+                self.update_eddies()
+            self.check_exit()
             self.update_screen()
-            self.lasers.update()
-            self.update_lasers()
-            self.update_eddies()
+
+    def _quit_game(self, event):
+        if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+            sys.exit()
+
+    def check_exit(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                self._quit_game(event)
 
     def update_eddies(self):
         """checks if eddie horde hits edge of screen, then updates position of all eddies"""
         self._check_horde_edges()
         self.eddies.update()
+        if pygame.sprite.spritecollideany(self.frasier, self.eddies):
+            self._frasier_hit()
+        self._eddie_at_bottom()
 
     def update_lasers(self):
         """removes lasers if off of screen"""
         for laser in self.lasers.copy():
             if laser.rect.bottom <= 0:
                 self.lasers.remove(laser)
+        self._check_hits()
+
+    def _check_hits(self):
+        """detects laser/eddie colllsions and updates accordingly"""
         collisions = pygame.sprite.groupcollide(self.lasers, self.eddies, True, True)
+        if not self.eddies:
+            self.lasers.empty()
+            self._create_horde()
 
 if __name__ =='__main__':
     tme = TooManyEddies()

@@ -1,4 +1,5 @@
 Next steps
+need to be able to exit or restart game after game over
 	'Greybox' the game. Can focus on gameplay that way
 		Features from book
 			Increasing speed
@@ -16,7 +17,12 @@ Next steps
 				fog
 				gravity mode slower movement AND slower lasers
 				rotated screen
-				
+
+sprite size means eddie can get under fras's eye lasers, may want a powerup that can catch the fall-through, like a
+grenade or a defening shout that makes them back up?
+
+also: don't want roadblocks spawning if eddie falls beneath frasier height
+
 Eddie is an angry God
     "DON'T BLAST EDDIE WHEN HE GLOWS"
     Destroying the wrong Eddie

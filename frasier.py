@@ -30,3 +30,9 @@ class Frasier:
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+
+    #TODO: write "center_frasier() method
+    def center_frasier(self):
+        """Centers frasier on the screen"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
