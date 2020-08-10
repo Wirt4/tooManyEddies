@@ -1,9 +1,22 @@
-Features I would like to have:
-Want a background with frasier's apartment, but that is not gameplay
-    stackoverflow thinks that should be a class
-
-   I want better eye lasers for frasier
-
+Next steps
+	'Greybox' the game. Can focus on gameplay that way
+		Features from book
+			Increasing speed
+			High Score
+			multiple lives
+			pause button?
+		Features I want
+			pop-up obstacles 
+			drop down powerups and powerdowns
+				speed up
+				slow down
+			when the wrong enemy gets hit ...
+				lightning strike and blackout
+				ice slick
+				fog
+				gravity mode slower movement AND slower lasers
+				rotated screen
+				
 Eddie is an angry God
     "DON'T BLAST EDDIE WHEN HE GLOWS"
     Destroying the wrong Eddie

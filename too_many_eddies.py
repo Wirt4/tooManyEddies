@@ -9,14 +9,18 @@ class TooManyEddies:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-       # self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Too Many Eddies")
         self.frasier = Frasier(self)
-        #self.lasers = pygame.sprite.Group()
         self.lasers = pygame.sprite.LayeredUpdates()
+
+    def _fire_laser(self):
+        if len(self.lasers)<self.settings.laser_capacity:
+            new_laser = Laser(self)
+            self.lasers.add(new_laser)
 
     def check_keydown_events(self, event):
         if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
@@ -27,13 +31,6 @@ class TooManyEddies:
             self.frasier.moving_left = True
         elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             sys.exit()
-
-    def _fire_laser(self):
-        if len(self.lasers)<self.settings.laser_capacity:
-            new_laser = Laser(self)
-            self.lasers.add(new_laser)
-            #see how this works
-            self.lasers.move_to_front(new_laser)
 
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -53,10 +50,10 @@ class TooManyEddies:
 
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
-        #self.frasier.blitme()
+        self.frasier.blitme()
         for laser in self.lasers.sprites():
             laser.draw_laser()
-        self.frasier.blitme()
+        #self.frasier.blitme()
         pygame.display.flip()
 
     def run_game(self):
@@ -70,7 +67,7 @@ class TooManyEddies:
 
     def update_lasers(self):
         for laser in self.lasers.copy():
-            if laser.rect.bottom <= 0:
+            if laser.rect_1.bottom <= 0:
                 self.lasers.remove(laser)
 
 if __name__ =='__main__':
