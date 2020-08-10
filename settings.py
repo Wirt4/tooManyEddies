@@ -12,3 +12,4 @@ class Settings:
         #this is a limit I didn't think of , should be something for playtesting
         self.laser_capacity = 3
         self.f_eye1 = 0
+        self.laser_layer = 1

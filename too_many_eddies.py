@@ -19,12 +19,12 @@ class TooManyEddies:
         self.lasers = pygame.sprite.LayeredUpdates()
 
     def check_keydown_events(self, event):
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+            self._fire_laser()
+        elif event.key == pygame.K_RIGHT:
             self.frasier.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.frasier.moving_left = True
-        elif event.key == pygame.K_UP or event.key == pygame.K_SPACE:
-            self._fire_laser()
         elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             sys.exit()
 
@@ -32,6 +32,8 @@ class TooManyEddies:
         if len(self.lasers)<self.settings.laser_capacity:
             new_laser = Laser(self)
             self.lasers.add(new_laser)
+            #see how this works
+            self.lasers.move_to_front(new_laser)
 
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -63,8 +65,8 @@ class TooManyEddies:
             self.check_events()
             self.frasier.update()
             self.update_screen()
-            self.update_lasers()
             self.lasers.update()
+            self.update_lasers()
 
     def update_lasers(self):
         for laser in self.lasers.copy():

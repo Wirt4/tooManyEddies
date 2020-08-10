@@ -10,7 +10,8 @@ class Laser(Sprite):
         self.settings = tme_game.settings
         self.color = self.settings.laser_color
         self.rect = pygame.Rect(0, 0, self.settings.laser_width, self.settings.laser_height)
-        self._layer = 5 #trying to get this to layer on top of fraz
+        self._layer = self.rect.bottom
+        #sprites.add(self, layer=self.layer)
 
         #self.rect.midtop = (tme_game.frasier.rect.midtop)
         self.rect.midtop =(tme_game.frasier.rect.centerx, tme_game.screen.get_rect().height - self.settings.f_eye1)

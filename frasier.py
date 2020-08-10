@@ -1,6 +1,6 @@
 import pygame
 
-class Frasier:
+class Frasier():
     def __init__(self, tme_game):
         self.screen = tme_game.screen
         self.screen_rect = tme_game.screen.get_rect()
