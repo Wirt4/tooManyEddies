@@ -1,0 +1,45 @@
+Features I would like to have:
+Want a background with frasier's apartment, but that is not gameplay
+    stackoverflow thinks that should be a class
+
+Eddie is an angry God
+    "DON'T BLAST EDDIE WHEN HE GLOWS"
+    Destroying the wrong Eddie
+       Road blocks
+            Martin, Roz, Daphne, Niles, Bulldog Gil and Lilith can block his path
+                Variable road block time, 30 seconds to start with
+               #this is such a delightful idea, might be a random drop instead of linked to destroying eddies
+
+       Weather
+            Interferes with Visibility
+                Lighting and power blackout
+                Soap Bubbles - optical distortion
+                fog
+                Cam Winston's American Flag (total blackout, a short, 2 second deal)
+
+       Reality Screw
+            Possible ice mode for reduced friction
+            upside down mode
+            inverted controls
+
+ Items to affect frasier - drop down from the celing and the player can collect them
+    Sherry
+        Slows him down temporarily
+    Cappicino
+        Speeds him up
+            possibility, too many multiplies his speeed too fast for the player to control
+
+brick walls
+zap eddie when his eyes are glowing BLUE and he will summon Martin or another Frasier character to sit in a random
+location in your path and BLOCK you from traveling that way (early levels, can go the long way round, later levels it's
+possible to get trapped between two characters
+Characters to have: Roz, Niles, Daphne, Martin, Bulldog, Gill and Lilith
+
+Remember, eddie has supernatural powers, if you zap an eddie when his eyes are glowing RED, it will warp reality,
+turning the controls backwards or turning reality upside down
+
+If you make eddie mad, he will summon lightning and make it rain (flashing lights to distract you)
+
+Eddie can have WEATHER powers (visibility blocks)
+    Lighning causing a temporary power outage (dim lights)
+    Fog causes
