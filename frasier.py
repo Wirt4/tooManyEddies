@@ -5,7 +5,8 @@ class Frasier:
     def __init__(self, tme_game):
         self.screen = tme_game.screen
         self.screen_rect = tme_game.screen.get_rect()
-        self.image = pygame.image.load('images/frasier_4.bmp')
+        #self.image = pygame.image.load('images/frasier_4.bmp')
+        self.image = pygame.image.load('images/frasier.bmp') #greyboxing
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
         self.moving_right = False

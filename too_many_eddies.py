@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from frasier import Frasier
 from laser import Laser
+from eddie import Eddie
 
 class TooManyEddies:
     'overall class to manage assets and behavior'
@@ -15,7 +16,13 @@ class TooManyEddies:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Too Many Eddies")
         self.frasier = Frasier(self)
-        self.lasers = pygame.sprite.LayeredUpdates()
+        self.lasers = pygame.sprite.Group()
+        self.eddies = pygame.sprite.Group()
+        self._create_horde()
+
+    def _create_horde(self):
+        eddie = Eddie(self)
+        self.eddies.add(eddie)
 
     def _fire_laser(self):
         if len(self.lasers)<self.settings.laser_capacity:
@@ -51,9 +58,9 @@ class TooManyEddies:
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.frasier.blitme()
+        self.eddies.draw(self.screen)
         for laser in self.lasers.sprites():
             laser.draw_laser()
-        #self.frasier.blitme()
         pygame.display.flip()
 
     def run_game(self):
