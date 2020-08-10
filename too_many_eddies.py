@@ -22,6 +22,22 @@ class TooManyEddies:
 
     def _create_horde(self):
         eddie = Eddie(self)
+        eddie_width, eddie_height = eddie.rect.size #eddie is a square
+        fras_height = self.frasier.rect.height
+        available_space_x = self.settings.screen_width - (2 * eddie_width)
+        available_space_y = self.settings.screen_height - (3 * eddie_height) - fras_height
+        num_rows = available_space_y//(2 * eddie_height)
+        num_eddies_x = available_space_x//(2 * eddie_width)
+        for j in range(num_rows):
+            for i in range(num_eddies_x):
+                self._create_eddie(j, i)
+
+    def _create_eddie(self, row_num, eddie_num):
+        eddie = Eddie(self)
+        eddie_width, eddie_height = eddie.rect.size
+        eddie.x = eddie_width + (2 * eddie_width * eddie_num)
+        eddie.rect.y = eddie.rect.height + (2 * eddie.rect.height * row_num)
+        eddie.rect.x = eddie.x
         self.eddies.add(eddie)
 
     def _fire_laser(self):
