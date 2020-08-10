@@ -110,8 +110,9 @@ class TooManyEddies:
     def update_lasers(self):
         """removes lasers if off of screen"""
         for laser in self.lasers.copy():
-            if laser.rect_1.bottom <= 0:
+            if laser.rect.bottom <= 0:
                 self.lasers.remove(laser)
+        collisions = pygame.sprite.groupcollide(self.lasers, self.eddies, True, True)
 
 if __name__ =='__main__':
     tme = TooManyEddies()
