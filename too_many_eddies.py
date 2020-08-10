@@ -15,7 +15,8 @@ class TooManyEddies:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Too Many Eddies")
         self.frasier = Frasier(self)
-        self.lasers = pygame.sprite.Group()
+        #self.lasers = pygame.sprite.Group()
+        self.lasers = pygame.sprite.LayeredUpdates()
 
     def check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -28,8 +29,9 @@ class TooManyEddies:
             sys.exit()
 
     def _fire_laser(self):
-        new_laser = Laser(self)
-        self.lasers.add(new_laser)
+        if len(self.lasers)<self.settings.laser_capacity:
+            new_laser = Laser(self)
+            self.lasers.add(new_laser)
 
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -60,11 +62,14 @@ class TooManyEddies:
         while True:
             self.check_events()
             self.frasier.update()
-            self.lasers.update()
-            for laser in self.lasers.copy():
-                if laser.rect.bottom <=0:
-                    self.lasers.remove(laser)
             self.update_screen()
+            self.update_lasers()
+            self.lasers.update()
+
+    def update_lasers(self):
+        for laser in self.lasers.copy():
+            if laser.rect.bottom <= 0:
+                self.lasers.remove(laser)
 
 if __name__ =='__main__':
     tme = TooManyEddies()

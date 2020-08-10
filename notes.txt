@@ -2,6 +2,8 @@ Features I would like to have:
 Want a background with frasier's apartment, but that is not gameplay
     stackoverflow thinks that should be a class
 
+   I want better eye lasers for frasier
+
 Eddie is an angry God
     "DON'T BLAST EDDIE WHEN HE GLOWS"
     Destroying the wrong Eddie
