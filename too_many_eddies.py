@@ -72,6 +72,7 @@ class TooManyEddies:
 
 
     def update_screen(self):
+        """Draws Frasier and the background"""
         self.screen.fill(self.settings.bg_color)
         self.frasier.blitme()
         self.eddies.draw(self.screen)
@@ -79,16 +80,35 @@ class TooManyEddies:
             laser.draw_laser()
         pygame.display.flip()
 
+    def _check_horde_edges(self):
+        """respond correctly if eddies have reached an edge"""
+        for eddie in self.eddies.sprites():
+            if eddie.at_edge():
+                self._switch_horde_direction()
+                break
+
+    def _switch_horde_direction(self):
+        for eddie in self.eddies.sprites():
+            eddie.rect.y += self.settings.eddie_drop_speed
+        self.settings.eddie_dir *= -1
+
     def run_game(self):
-        #primary game loop
+        """primary game loop"""
         while True:
             self.check_events()
             self.frasier.update()
             self.update_screen()
             self.lasers.update()
             self.update_lasers()
+            self.update_eddies()
+
+    def update_eddies(self):
+        """checks if eddie horde hits edge of screen, then updates position of all eddies"""
+        self._check_horde_edges()
+        self.eddies.update()
 
     def update_lasers(self):
+        """removes lasers if off of screen"""
         for laser in self.lasers.copy():
             if laser.rect_1.bottom <= 0:
                 self.lasers.remove(laser)
