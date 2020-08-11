@@ -14,11 +14,11 @@ class TooManyEddies:
         pygame.init()
         self.settings = Settings()
 
-        #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
+        #self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        #self.settings.screen_width = self.screen.get_rect().width
+        #self.settings.screen_height = self.screen.get_rect().height
 
         pygame.display.set_caption("Too Many Eddies")
         self.stats = Stats(self)
@@ -61,7 +61,7 @@ class TooManyEddies:
         self.eddies.add(eddie)
 
     def _fire_laser(self):
-        if len(self.lasers)<self.settings.laser_capacity:
+        if len(self.lasers)< self.settings.laser_capacity:
             new_laser = Laser(self)
             self.lasers.add(new_laser)
 

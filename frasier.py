@@ -24,6 +24,7 @@ class Frasier:
         if self.rect.left >= self.screen_rect.right:
             self.x = 0 - (self.rect.right - self.rect.left)
 
+
         if self.rect.right < 0:
             self.x = self.screen_rect.right
 
