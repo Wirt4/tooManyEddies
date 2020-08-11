@@ -31,6 +31,6 @@ class Settings:
             self.eddie_speed /= self.accelerate
         else:
             self.eddie_speed *= self.accelerate
-        #self.laser_speed *= self.accelerate
+        self.laser_speed *= self.accelerate
         self.eddie_size = (int(self.eddie_size[0] *self.shrink_factor),  int(self.eddie_size[1] * self.shrink_factor))
         #would be great if frasier and his eye lasers got proportionaltely smaller
