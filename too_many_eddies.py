@@ -87,6 +87,8 @@ class TooManyEddies:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self._fire_laser()
             if event.type == pygame.KEYDOWN:
                 self.check_keydown_events(event)
             elif event.type == pygame.KEYUP:
@@ -130,6 +132,7 @@ class TooManyEddies:
                 break
 
     def _switch_horde_direction(self):
+        """changes eddie's direction as he inches down"""
         for eddie in self.eddies.sprites():
             eddie.rect.y += self.settings.eddie_drop_speed
         self.settings.eddie_dir *= -1
