@@ -1,4 +1,8 @@
 Next steps
+
+want some positive feedback with the level break
+
+can sprites be scaled throughout the game? would like to gradually shrink them,then fill the level with eddies
 need to be able to exit or restart game after game over
 	'Greybox' the game. Can focus on gameplay that way
 		Features from book

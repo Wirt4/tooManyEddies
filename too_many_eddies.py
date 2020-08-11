@@ -16,10 +16,6 @@ class TooManyEddies:
 
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
-        #self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        #self.settings.screen_width = self.screen.get_rect().width
-        #self.settings.screen_height = self.screen.get_rect().height
-
         pygame.display.set_caption("Too Many Eddies")
         self.stats = Stats(self)
         self.frasier = Frasier(self)
@@ -27,6 +23,7 @@ class TooManyEddies:
         self.eddies = pygame.sprite.Group()
         self._create_horde()
         self.play_button = Button(self, "Play")
+        self.level_button = Button(self, "Outstanding!")
 
     def _frasier_hit(self):
         if self.stats.frasiers_left > 0:
@@ -65,15 +62,15 @@ class TooManyEddies:
             new_laser = Laser(self)
             self.lasers.add(new_laser)
 
-    def check_keydown_events(self, event):
-        if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
-            self._fire_laser()
-        elif event.key == pygame.K_RIGHT:
-            self.frasier.moving_right = True
-        elif event.key == pygame.K_LEFT:
-            self.frasier.moving_left = True
-        else:
-            self._quit_game(event)
+    # def check_keydown_events(self, event):
+    #     if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+    #         self._fire_laser()
+    #     elif event.key == pygame.K_RIGHT:
+    #         self.frasier.moving_right = True
+    #     elif event.key == pygame.K_LEFT:
+    #         self.frasier.moving_left = True
+    #     else:
+    #         self._quit_game(event)
         #elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             #sys.exit()
 
@@ -90,13 +87,13 @@ class TooManyEddies:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._fire_laser()
             if event.type == pygame.KEYDOWN:
-                self.check_keydown_events(event)
-            elif event.type == pygame.KEYUP:
-                self.check_keyup_events(event)
+                self._quit_game(event)
 
     def _check_play_button(self, mouse_pos):
         """starts a new game when player clicks button"""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if clicked and not self.stats.game_active:
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
             self.eddies.empty()
@@ -185,6 +182,8 @@ class TooManyEddies:
         if not self.eddies:
             self.lasers.empty()
             self._create_horde()
+            self.settings.increase_speed()
+            sleep(0.5)
 
 if __name__ =='__main__':
     tme = TooManyEddies()

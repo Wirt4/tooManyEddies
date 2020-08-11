@@ -7,13 +7,27 @@ class Settings:
         self.f_limit = 2
         #laser settings
         self.laser_speed = 1.0
-        self.laser_height = 10
+        self.laser_height = 50
         self.laser_width = 10
         #will eventually refactor laser to be a graphical pair of beams
         self.laser_color = (255, 0, 0) # want red
-        self.laser_capacity = 3
+        self.laser_capacity = 5
         self.f_eye1 = 60
         #eddie settings
-        self.eddie_speed = 0.01
+        self.eddie_speed = 1.0
         self.eddie_drop_speed = 10
         self.eddie_dir = 1
+
+        self.accelerate = 1.05
+        self.initialize_dynamic_settings()
+
+    def initialize_dynamic_settings(self):
+        self.eddie_speed = 0.07
+
+
+    def increase_speed(self):
+        if self.eddie_speed < 0:
+            self.eddi_speed /= self.accelerate
+        else:
+            self.eddie_speed *= self.accelerate
+        #self.laser_speed *= self.accelerate
