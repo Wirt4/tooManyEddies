@@ -6,7 +6,6 @@ class Eddie(Sprite):
         super().__init__()
         self.screen = tme_game.screen
         self.image = pygame.image.load('images/eddie.bmp')
-        init_rect = self.image.get_rect()
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width

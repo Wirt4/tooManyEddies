@@ -13,11 +13,13 @@ class TooManyEddies:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen_size = self.screen.get_rect().size
         pygame.display.set_caption("Too Many Eddies")
-        self.bg = pygame.image.load("images/apartment.bmp")
+
         self.stats = Stats(self)
-        self.frasier = Frasier(self)
+        self.frasier = Frasier(self, self.settings.frasier_size)
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
@@ -40,8 +42,8 @@ class TooManyEddies:
         eddie = Eddie(self, self.settings.eddie_size)
         eddie_width, eddie_height = eddie.rect.size #eddie is a square
         fras_height = self.frasier.rect.height
-        available_space_x = self.settings.screen_width - (2 * eddie_width)
-        available_space_y = self.settings.screen_height - (3 * eddie_height) - fras_height
+        available_space_x = self.screen_size[0] - (2 * eddie_width)
+        available_space_y = self.screen_size[1] - (3 * eddie_height) - fras_height
         num_rows = available_space_y//(2 * eddie_height)
         num_eddies_x = available_space_x//(2 * eddie_width)
         for j in range(num_rows):
@@ -58,7 +60,7 @@ class TooManyEddies:
 
     def _fire_laser(self):
         if len(self.lasers)< self.settings.laser_capacity:
-            new_laser = Laser(self)
+            new_laser = Laser(self, self.settings.laser_size)
             self.lasers.add(new_laser)
 
     def check_keyup_events(self, event):
@@ -86,6 +88,7 @@ class TooManyEddies:
             self.eddies.empty()
             self.lasers.empty()
             self._create_horde()
+            self.frasier.update_size(self.settings.frasier_size)
             self.frasier.center_frasier()
             pygame.mouse.set_visible(False)
 
@@ -99,8 +102,7 @@ class TooManyEddies:
 
     def _update_screen(self):
         """Draws Frasier and the background"""
-        #self.screen.fill(self.settings.bg_color)
-        self.screen.blit(self.bg, (0, 0))
+        self.screen.fill(self.settings.bg_color)
         self.frasier.blitme()
         self.eddies.draw(self.screen)
         for laser in self.lasers.sprites():
@@ -171,7 +173,7 @@ class TooManyEddies:
             self.lasers.empty()
             self._create_horde()
             self.settings.increase_speed()
-            sleep(0.5)
+            self.frasier.update_size(self.settings.frasier_size)
 
 if __name__ =='__main__':
     tme = TooManyEddies()
