@@ -62,18 +62,6 @@ class TooManyEddies:
             new_laser = Laser(self)
             self.lasers.add(new_laser)
 
-    # def check_keydown_events(self, event):
-    #     if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
-    #         self._fire_laser()
-    #     elif event.key == pygame.K_RIGHT:
-    #         self.frasier.moving_right = True
-    #     elif event.key == pygame.K_LEFT:
-    #         self.frasier.moving_left = True
-    #     else:
-    #         self._quit_game(event)
-        #elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
-            #sys.exit()
-
     def check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.frasier.moving_right = False

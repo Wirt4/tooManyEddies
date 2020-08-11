@@ -16,18 +16,8 @@ class Frasier:
 
     def update(self):
         self.x = pygame.mouse.get_pos()[0]
-        self.rect.x = self.x
-        # if self.moving_right:
-        #     self.x += self.settings.f_speed
-        # if self.moving_left:
-        #     self.x -= self.settings.f_speed
-        # self.rect.x = self.x
-        # #positional cases for an "infinite canvas
-        # if self.rect.left >= self.screen_rect.right:
-        #     self.x = 0 - (self.rect.right - self.rect.left)
-        # if self.rect.right < 0:
-        #     self.x = self.screen_rect.right
-
+        if self.x < self.settings.screen_width - self.rect.width:
+            self.rect.x = self.x
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)

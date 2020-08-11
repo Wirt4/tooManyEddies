@@ -2,6 +2,8 @@ Next steps
 
 want some positive feedback with the level break
 
+game does not record mouse position if it it out of window, so can't do an "infinite scroll" with fraz
+
 can sprites be scaled throughout the game? would like to gradually shrink them,then fill the level with eddies
 need to be able to exit or restart game after game over
 	'Greybox' the game. Can focus on gameplay that way
