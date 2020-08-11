@@ -2,18 +2,17 @@ import pygame
 from pygame.sprite import Sprite
 
 class Eddie(Sprite):
-    def __init__(self, tme_game):
+    def __init__(self, tme_game, size):
         super().__init__()
         self.screen = tme_game.screen
         self.image = pygame.image.load('images/eddie.bmp')
         init_rect = self.image.get_rect()
-        self.render_image = pygame.transform.scale(self.image, (int(init_rect.size[0] * .5), int(init_rect.size[1] * .5)))
-        self.rect = self.render_image.get_rect()
+        self.image = pygame.transform.scale(self.image, size)
+        self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
-        self.rect.y = self.rect.height
+        self.rect.y = self.rect.height 
         self.x = float(self.rect.x)
         self.settings = tme_game.settings
-        self.speed = self.settings.eddie_speed
 
     def update(self):
         """Move Eddie right or left"""

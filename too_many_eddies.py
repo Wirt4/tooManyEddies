@@ -7,7 +7,6 @@ from eddie import Eddie
 from stats import Stats
 from time import sleep
 from button import Button
-from background import Background
 
 class TooManyEddies:
     """overall class to manage assets and behavior"""
@@ -23,6 +22,7 @@ class TooManyEddies:
         self.eddies = pygame.sprite.Group()
         self._create_horde()
         self.play_button = Button(self, "Play")
+        self.eddie_scale = 1.0
 
     def _frasier_hit(self):
         if self.stats.frasiers_left > 0:
@@ -37,7 +37,7 @@ class TooManyEddies:
             pygame.mouse.set_visible(True)
 
     def _create_horde(self):
-        eddie = Eddie(self)
+        eddie = Eddie(self, self.settings.eddie_size)
         eddie_width, eddie_height = eddie.rect.size #eddie is a square
         fras_height = self.frasier.rect.height
         available_space_x = self.settings.screen_width - (2 * eddie_width)
@@ -49,7 +49,7 @@ class TooManyEddies:
                 self._create_eddie(j, i)
 
     def _create_eddie(self, row_num, eddie_num):
-        eddie = Eddie(self)
+        eddie = Eddie(self, self.settings.eddie_size)
         eddie_width, eddie_height = eddie.rect.size
         eddie.x = eddie_width + (2 * eddie_width * eddie_num)
         eddie.rect.y = eddie.rect.height + (2 * eddie.rect.height * row_num)
