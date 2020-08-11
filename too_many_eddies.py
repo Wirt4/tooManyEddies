@@ -7,23 +7,22 @@ from eddie import Eddie
 from stats import Stats
 from time import sleep
 from button import Button
+from background import Background
 
 class TooManyEddies:
     """overall class to manage assets and behavior"""
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-
         pygame.display.set_caption("Too Many Eddies")
+        self.bg = pygame.image.load("images/apartment.bmp")
         self.stats = Stats(self)
         self.frasier = Frasier(self)
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
         self.play_button = Button(self, "Play")
-        self.level_button = Button(self, "Outstanding!")
 
     def _frasier_hit(self):
         if self.stats.frasiers_left > 0:
@@ -100,7 +99,8 @@ class TooManyEddies:
 
     def _update_screen(self):
         """Draws Frasier and the background"""
-        self.screen.fill(self.settings.bg_color)
+        #self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.bg, (0, 0))
         self.frasier.blitme()
         self.eddies.draw(self.screen)
         for laser in self.lasers.sprites():

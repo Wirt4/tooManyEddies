@@ -9,9 +9,12 @@ class Laser(Sprite):
         self.screen = tme_game.screen
         self.settings = tme_game.settings
         self.color = self.settings.laser_color
-        self.rect = pygame.Rect(0, 0, self.settings.laser_width, self.settings.laser_height)
-        #TODO: should lasers be two sepearate objects or a bullet bmp on a transparency ?
-        self.rect.midtop =(tme_game.frasier.rect.centerx, tme_game.screen.get_rect().height - self.settings.f_eye1)
+        #self.rect = pygame.Rect(0, 0, self.settings.laser_width, self.settings.laser_height)
+        self.image = pygame.image.load('images/lasers.bmp')
+        self.rect = self.image.get_rect()
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
+        self.rect.midtop =(tme_game.frasier.rect.centerx - 17, tme_game.screen.get_rect().height-200)
         self.y = float(self.rect.y)
 
     def update(self):
@@ -19,4 +22,4 @@ class Laser(Sprite):
         self.rect.y = self.y
 
     def draw_laser(self):
-        pygame.draw.rect(self.screen, self.color, self.rect)
+        self.screen.blit(self.image, self.rect)

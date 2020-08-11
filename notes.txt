@@ -1,5 +1,10 @@
 Next steps
 
+This is fucking insane: need something to break up the game play experience, maybe a giant boss eddie?
+want to register hits
+
+eddies move fast enough to be challenging, but too fast to see
+
 want some positive feedback with the level break
 
 game does not record mouse position if it it out of window, so can't do an "infinite scroll" with fraz
