@@ -7,6 +7,7 @@ Controls:
 	Mouse to move
 	Mouse button to fire
 	'q' or 'esc' to quit
+	'p' to pause
 
 Requirements:
 	Game is built in Python 3 and Pygame. You'll need to have both on your system to run it. To run game, execute main.py

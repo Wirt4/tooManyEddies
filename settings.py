@@ -2,8 +2,8 @@ import pygame
 import random
 class Settings:
     def __init__(self):
-        self.screen_width = 1400
-        self.screen_height = 800
+        self.screen_width = 1536
+        self.screen_height = 864
         self.bg_color = (0, 0, 0)
         self.f_speed = 0.25
         self.f_limit = 3
@@ -32,6 +32,9 @@ class Settings:
                                 "Send in the hounds", "A most unusual talent", "It's from his mother's side",
                                 "Jack Russell terror", "les chiens de l’enfer ", "The ultimate space invader",
                                 "'Many Eddies", "dog :1, man: 0"]
+        #would like sounds, but are nice to haves
+        #self.laser_sound = pygame.mixer.Sound('sounds/laser.wav')
+        #self.boom_sound = pygame.mixer.Sound('sounds/boom.wav')
 
     def initialize_dynamic_settings(self):
         self.eddie_speed = 1.5

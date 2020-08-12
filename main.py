@@ -14,7 +14,7 @@ class TooManyEddies:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-        #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+       # self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen_size = self.screen.get_rect().size
         pygame.display.set_caption("Too Many Eddies: A Frasier Parody")
@@ -27,6 +27,7 @@ class TooManyEddies:
         #can have some fun here, store an array of captions in settings and intizialise with a different one each time?
         self.play_button = Button(self)
         self.scoreboard = Scoreboard(self)
+        self.paused = False
 
     def _start_level(self):
         self.lasers.empty()
@@ -66,7 +67,7 @@ class TooManyEddies:
         self.eddies.add(eddie)
 
     def _fire_laser(self):
-        if len(self.lasers) < self.settings.laser_capacity:
+        if len(self.lasers) < self.settings.laser_capacity and not self.paused:
             new_laser = Laser(self, self.settings.laser_size)
             self.lasers.add(new_laser)
 
@@ -75,7 +76,7 @@ class TooManyEddies:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._fire_laser()
             elif event.type == pygame.KEYDOWN:
-                self._quit_game(event)
+                    self._quit_game(event)
 
     def _check_play_button(self, mouse_pos):
         """starts a new game when player clicks button"""
@@ -120,7 +121,7 @@ class TooManyEddies:
     def run_game(self):
         """primary game loop"""
         while True:
-            if self.stats.game_active:
+            if self.stats.game_active and not self.paused:
                 self.check_events()
                 self.frasier.update()
                 self.lasers.update()
@@ -142,6 +143,9 @@ class TooManyEddies:
         """exits game based on keystroke"""
         if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             sys.exit()
+        elif event.key ==pygame.K_p:
+            self.paused = False if self.paused else True
+
 
     def update_eddies(self):
         """checks if eddie horde hits edge of screen, then updates position of all eddies"""
