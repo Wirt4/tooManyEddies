@@ -1,4 +1,5 @@
 import pygame
+import random
 class Settings:
     def __init__(self):
         self.screen_width = 1400
@@ -10,7 +11,7 @@ class Settings:
         self.laser_speed = 2.0
         #will eventually refactor laser to be a graphical pair of beams
         self.laser_color = (255, 0, 0) # want red
-        self.laser_capacity = 1
+        self.laser_capacity = 3
         self.laser_height = 200
         #eddie settings
         self.eddie_drop_speed = 10
@@ -21,9 +22,19 @@ class Settings:
         self.score_scale = 1.5
         self.initialize_dynamic_settings()
         #can initialize an event drop rate here
+        self.font ="Times New Roman"
+        self.score_font_size = 48
+        self.text_color = (255, 255, 255)
+
+        self.icon_size = (40, 40)
+        self.icon_margin = 10
+        self.button_messages = ["PERSIAN RUG, WE HARDLY KNEW YE", "NO, BAD EDDIE", "NO, BAD FRASIER", "Apotheosis",
+                                "Send in the hounds", "A most unusual talent", "It's from his mother's side",
+                                "Jack Russell terror", "les chiens de l’enfer ", "The ultimate space invader",
+                                "'Many Eddies", "dog :1, man: 0"]
 
     def initialize_dynamic_settings(self):
-        self.eddie_speed = 1.0
+        self.eddie_speed = 1.5
         self.eddie_size = pygame.image.load('images/eddie.bmp').get_rect().size
         self.frasier_size = pygame.image.load('images/frasier.bmp').get_rect().size
         self.laser_size = pygame.image.load('images/lasers.bmp').get_rect().size
@@ -52,3 +63,6 @@ class Settings:
 
     def _shrink_tuple(self, size):
         return (int(size[0] *self.shrink_factor),  int(size[1] * self.shrink_factor))
+
+    def get_button_message(self):
+        pass

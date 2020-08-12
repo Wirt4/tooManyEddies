@@ -17,25 +17,29 @@ class TooManyEddies:
         #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen_size = self.screen.get_rect().size
-        pygame.display.set_caption("Too Many Eddies")
+        pygame.display.set_caption("Too Many Eddies: A Frasier Parody")
 
         self.stats = Stats(self)
         self.frasier = Frasier(self, self.settings.frasier_size)
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
-        self.play_button = Button(self, "Play")
-        self.eddie_scale = 1.0
+        #can have some fun here, store an array of captions in settings and intizialise with a different one each time?
+        self.play_button = Button(self)
         self.scoreboard = Scoreboard(self)
 
+    def _start_level(self):
+        self.lasers.empty()
+        self._create_horde()
+        self.frasier.update_size(self.settings.frasier_size)
+        self.scoreboard.prep_level()
+        self.scoreboard.prep_frasiers()
+
     def _frasier_hit(self):
-        if self.stats.frasiers_left > 0:
+        if self.stats.frasiers_left > 1:
             self.stats.frasiers_left -= 1
-            self.scoreboard.prep_frasiers()
             self.eddies.empty()
-            self.lasers.empty()
-            self._create_horde()
-            self.frasier.center_frasier()
+            self._start_level()
             sleep(0.5)
         else:
             self.stats.game_active = False
@@ -43,10 +47,10 @@ class TooManyEddies:
 
     def _create_horde(self):
         eddie = Eddie(self, self.settings.eddie_size)
-        eddie_width, eddie_height = eddie.rect.size #eddie is a square
+        eddie_width, eddie_height = eddie.rect.size
         fras_height = self.frasier.rect.height
         available_space_x = self.screen_size[0] - (2 * eddie_width)
-        available_space_y = self.screen_size[1] - (3 * eddie_height) - fras_height
+        available_space_y = self.screen_size[1] - (2 * eddie_height) - fras_height
         num_rows = available_space_y//(2 * eddie_height)
         num_eddies_x = available_space_x//(2 * eddie_width)
         for j in range(num_rows):
@@ -62,41 +66,23 @@ class TooManyEddies:
         self.eddies.add(eddie)
 
     def _fire_laser(self):
-        if len(self.lasers)< self.settings.laser_capacity:
+        if len(self.lasers) < self.settings.laser_capacity:
             new_laser = Laser(self, self.settings.laser_size)
             self.lasers.add(new_laser)
 
-    def check_keyup_events(self, event):
-        if event.key == pygame.K_RIGHT:
-            self.frasier.moving_right = False
-        elif event.key == pygame.K_LEFT:
-            self.frasier.moving_left = False
-
     def check_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._fire_laser()
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 self._quit_game(event)
 
     def _check_play_button(self, mouse_pos):
         """starts a new game when player clicks button"""
         clicked = self.play_button.rect.collidepoint(mouse_pos)
         if clicked and not self.stats.game_active:
-            self.settings.initialize_dynamic_settings()
-            self.stats.reset_stats()
-            self.stats.game_active = True
-            self.scoreboard.prep_score()
-            self.scoreboard.prep_level()
-            self.eddies.empty()
-            self.lasers.empty()
-            self._create_horde()
-            self.frasier.update_size(self.settings.frasier_size)
-            self.frasier.center_frasier()
-            self.scoreboard.prep_frasiers()
-            pygame.mouse.set_visible(False)
+            self._start_game()
+            self.play_button = Button(self)
 
     def _eddie_at_bottom(self):
         """Checks if eddie has reached the bottom of the screen and will RUIN Frasier's new persian rug"""
@@ -134,7 +120,7 @@ class TooManyEddies:
     def run_game(self):
         """primary game loop"""
         while True:
-            if self.stats.game_active == True:
+            if self.stats.game_active:
                 self.check_events()
                 self.frasier.update()
                 self.lasers.update()
@@ -143,20 +129,19 @@ class TooManyEddies:
             self.check_exit()
             self._update_screen()
 
-    def _quit_game(self, event):
-        if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
-            sys.exit()
-
     def check_exit(self):
         """checks for events outside of game loop"""
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
             if event.type == pygame.KEYDOWN:
                 self._quit_game(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+
+    def _quit_game(self, event):
+        """exits game based on keystroke"""
+        if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+            sys.exit()
 
     def update_eddies(self):
         """checks if eddie horde hits edge of screen, then updates position of all eddies"""
@@ -179,17 +164,22 @@ class TooManyEddies:
         if collisions:
             for eddies in collisions.values():
                 self.stats.score += self.settings.eddie_points * len(eddies)
-                self.scoreboard.prep_score()
-                self.scoreboard.check_high_score()
+            self.scoreboard.prep_score()
+            #self.scoreboard.check_high_score()
         if not self.eddies:
-            self.lasers.empty()
-            self._create_horde()
             self.settings.increase_speed()
-            self.frasier.update_size(self.settings.frasier_size)
             self.stats.level += 1
-            self.scoreboard.prep_level()
-            #want the frasier lives to shrink too?
-            self.scoreboard.prep_frasiers()
+            self._start_level()
+
+    def _start_game(self):
+        """starts a new game"""
+        self.settings.initialize_dynamic_settings()
+        self.stats.reset_stats()
+        self.stats.game_active = True
+        self.eddies.empty()
+        self._start_level()
+        pygame.mouse.set_visible(False)
+
 
 if __name__ =='__main__':
     tme = TooManyEddies()

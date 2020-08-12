@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 class Eddie(Sprite):
+    """initilizes an eddie sprite, size is a tuple"""
     def __init__(self, tme_game, size):
         super().__init__()
         self.screen = tme_game.screen
