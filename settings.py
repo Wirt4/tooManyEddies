@@ -18,6 +18,7 @@ class Settings:
         self.shrink_factor = 0.9
         self.eddie_accelerate = 1.2
         self.laser_accelerate = 1.1
+        self.score_scale = 1.5
         self.initialize_dynamic_settings()
         #can initialize an event drop rate here
 
@@ -27,7 +28,8 @@ class Settings:
         self.frasier_size = pygame.image.load('images/frasier.bmp').get_rect().size
         self.laser_size = pygame.image.load('images/lasers.bmp').get_rect().size
         self.laser_height = 200
-        self.laser_offset =17
+        self.laser_offset = 17
+        self.eddie_points= 50
 
 
     def increase_speed(self):
@@ -42,6 +44,8 @@ class Settings:
         self.laser_size = self._shrink_tuple(self.frasier_size)
         self.laser_height = self._shrink(self.laser_height)
         self.laser_offset = self._shrink(self.laser_offset)
+
+        self.eddie_points = int(self.eddie_points* self.score_scale)
         #would be great if frasier and his eye lasers got proportionaltely smaller
     def _shrink(self, number):
         return int(number * self.shrink_factor)

@@ -7,6 +7,7 @@ from eddie import Eddie
 from stats import Stats
 from time import sleep
 from button import Button
+from scoreboard import Scoreboard
 
 class TooManyEddies:
     """overall class to manage assets and behavior"""
@@ -25,6 +26,7 @@ class TooManyEddies:
         self._create_horde()
         self.play_button = Button(self, "Play")
         self.eddie_scale = 1.0
+        self.scoreboard = Scoreboard(self)
 
     def _frasier_hit(self):
         if self.stats.frasiers_left > 0:
@@ -85,6 +87,8 @@ class TooManyEddies:
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
+            self.scoreboard.prep_score()
+            self.scoreboard.prep_level()
             self.eddies.empty()
             self.lasers.empty()
             self._create_horde()
@@ -105,6 +109,7 @@ class TooManyEddies:
         self.screen.fill(self.settings.bg_color)
         self.frasier.blitme()
         self.eddies.draw(self.screen)
+        self.scoreboard.show_score()
         for laser in self.lasers.sprites():
             laser.draw_laser()
         if not self.stats.game_active:
@@ -169,11 +174,18 @@ class TooManyEddies:
     def _check_hits(self):
         """detects laser/eddie colllsions and updates accordingly"""
         collisions = pygame.sprite.groupcollide(self.lasers, self.eddies, True, True)
+        if collisions:
+            for eddies in collisions.values():
+                self.stats.score += self.settings.eddie_points * len(eddies)
+                self.scoreboard.prep_score()
+                self.scoreboard.check_high_score()
         if not self.eddies:
             self.lasers.empty()
             self._create_horde()
             self.settings.increase_speed()
             self.frasier.update_size(self.settings.frasier_size)
+            self.stats.level += 1
+            self.scoreboard.prep_level()
 
 if __name__ =='__main__':
     tme = TooManyEddies()

@@ -1,3 +1,12 @@
+Consider redoing lasers as rects to cut down on processor load
+
+powerups I want frasier to have
+	more laser shots
+	wider range span (maybe make it a joke and add wingman niles or something)
+	bomb? (oldest powerup in the book)
+
+This runs MUCH slower on the mac, need an arch speed throttle in settings, or a user interface to adjust the speed(i.e all speeds go through a multiplier of 1.0, .75, 2.0 to get a comftorable speed for the computer.
+
 Next steps
 
 This is fucking insane: need something to break up the game play experience, maybe a giant boss eddie?
