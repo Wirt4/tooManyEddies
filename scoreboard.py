@@ -1,7 +1,11 @@
 import pygame
+from pygame.sprite import Group
+from frasier import Frasier
+
 class Scoreboard:
 
     def __init__(self, tme_game):
+        self.tme_game = tme_game
         self.screen = tme_game.screen
         self.screen_rect= tme_game.screen.get_rect()
         self.settings = tme_game.settings
@@ -13,6 +17,15 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
+        self.prep_frasiers()
+
+    def prep_frasiers(self):
+        self.frasiers = Group()
+        for frasier_num in range(self.stats.frasiers_left):
+                frasier = Frasier(self.tme_game, (40, 40))
+                frasier.rect.x = 10 + frasier_num * frasier.rect.width
+                frasier.rect.y = 10
+                self.frasiers.add(frasier)
 
     def prep_high_score(self):
         """turns high score into rendered image"""
@@ -34,10 +47,11 @@ class Scoreboard:
         self.score_rect.top = 20
 
     def show_score(self):
-        """draws rendered score on screen"""
+        """draws rendered score and lives on screen"""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.frasiers.draw(self.screen)
 
     def check_high_score(self):
         """see if there's a new high score"""

@@ -31,6 +31,7 @@ class TooManyEddies:
     def _frasier_hit(self):
         if self.stats.frasiers_left > 0:
             self.stats.frasiers_left -= 1
+            self.scoreboard.prep_frasiers()
             self.eddies.empty()
             self.lasers.empty()
             self._create_horde()
@@ -94,6 +95,7 @@ class TooManyEddies:
             self._create_horde()
             self.frasier.update_size(self.settings.frasier_size)
             self.frasier.center_frasier()
+            self.scoreboard.prep_frasiers()
             pygame.mouse.set_visible(False)
 
     def _eddie_at_bottom(self):
@@ -186,6 +188,8 @@ class TooManyEddies:
             self.frasier.update_size(self.settings.frasier_size)
             self.stats.level += 1
             self.scoreboard.prep_level()
+            #want the frasier lives to shrink too?
+            self.scoreboard.prep_frasiers()
 
 if __name__ =='__main__':
     tme = TooManyEddies()

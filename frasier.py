@@ -1,8 +1,9 @@
 import pygame
 from pygame.sprite import Sprite
 
-class Frasier:
+class Frasier(Sprite):
     def __init__(self, tme_game, size):
+        super().__init__()
         self.screen = tme_game.screen
         self.screen_rect = tme_game.screen.get_rect()
         self.image = pygame.image.load('images/frasier.bmp')

@@ -5,7 +5,7 @@ class Settings:
         self.screen_height = 800
         self.bg_color = (0, 0, 0)
         self.f_speed = 0.25
-        self.f_limit = 2
+        self.f_limit = 3
         #laser settings
         self.laser_speed = 2.0
         #will eventually refactor laser to be a graphical pair of beams
