@@ -25,4 +25,5 @@ class Button:
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_img, self.msg_img_rect)
 
+
     #might like a fade-out function here, can call when is clicked

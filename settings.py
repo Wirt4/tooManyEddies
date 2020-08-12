@@ -6,9 +6,7 @@ class Settings:
         self.screen_height = 864
         self.bg_color = (0, 0, 0)
         self.f_speed = 0.25
-        self.f_limit = 3
-        #laser settings
-        self.laser_speed = 2.0
+        self.f_limit = 2
         #will eventually refactor laser to be a graphical pair of beams
         self.laser_color = (255, 0, 0) # want red
         self.laser_capacity = 3
@@ -37,13 +35,14 @@ class Settings:
         #self.boom_sound = pygame.mixer.Sound('sounds/boom.wav')
 
     def initialize_dynamic_settings(self):
-        self.eddie_speed = 1.5
+        self.eddie_speed = 2.0
         self.eddie_size = pygame.image.load('images/eddie.bmp').get_rect().size
         self.frasier_size = pygame.image.load('images/frasier.bmp').get_rect().size
         self.laser_size = pygame.image.load('images/lasers.bmp').get_rect().size
         self.laser_height = 200
         self.laser_offset = 17
         self.eddie_points= 50
+        self.laser_speed = 2.0
 
 
     def increase_speed(self):

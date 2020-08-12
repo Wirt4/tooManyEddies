@@ -24,7 +24,6 @@ class TooManyEddies:
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
-        #can have some fun here, store an array of captions in settings and intizialise with a different one each time?
         self.play_button = Button(self)
         self.scoreboard = Scoreboard(self)
         self.paused = False
@@ -37,7 +36,7 @@ class TooManyEddies:
         self.scoreboard.prep_frasiers()
 
     def _frasier_hit(self):
-        if self.stats.frasiers_left > 1:
+        if self.stats.frasiers_left > 0:
             self.stats.frasiers_left -= 1
             self.eddies.empty()
             self._start_level()
@@ -45,6 +44,8 @@ class TooManyEddies:
         else:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+            sleep(5)
+            self.frasier = Frasier(self, self.settings.frasier_size)
 
     def _create_horde(self):
         eddie = Eddie(self, self.settings.eddie_size)
