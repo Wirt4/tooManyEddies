@@ -20,6 +20,7 @@ class Scoreboard:
         #self.prep_high_score()
         self.prep_level()
         self.prep_frasiers()
+        self.prep_q_msg()
 
     def prep_frasiers(self):
         """creates a row of tiny frasier heads to show how many lives are left"""
@@ -39,6 +40,14 @@ class Scoreboard:
     #     self.high_score_rect.centerx = self.screen_rect.centerx
     #     self.high_score_rect.top = self.score_rect.top
 
+    def prep_q_msg(self):
+        """creates a rendered quit message"""
+        q_msg = "press 'q' to quit"
+        self.q_msg_img = self.font.render(q_msg, True, self.text_color, self.settings.bg_color)
+        self.q_msg_rect =self.q_msg_img.get_rect()
+        self.q_msg_rect.left = self.screen_rect.left
+        self.q_msg_rect.bottom = self.screen_rect.bottom
+
     def prep_score(self):
         """creates a rendered score from data"""
         rounded_score = round(self.stats.score, -1)
@@ -54,6 +63,7 @@ class Scoreboard:
         #self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
         self.frasiers.draw(self.screen)
+        self.screen.blit(self.q_msg_img, self.q_msg_rect)
 
     # def check_high_score(self):
     #     """see if there's a new high score"""
