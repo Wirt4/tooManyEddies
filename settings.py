@@ -20,7 +20,8 @@ class Settings:
         self.score_scale = 1.5
         self.initialize_dynamic_settings()
         #can initialize an event drop rate here
-        self.font ="Times New Roman"
+        #self.font ="Times New Roman"
+        self.font = "Times New Roman"
         self.score_font_size = 48
         self.text_color = (255, 255, 255)
 
@@ -66,5 +67,14 @@ class Settings:
     def _shrink_tuple(self, size):
         return (int(size[0] *self.shrink_factor),  int(size[1] * self.shrink_factor))
 
-    def get_button_message(self):
-        pass
+    def speed_shift_up(self):
+        self.f_speed *= 2
+        self.eddie_drop_speed *= 2
+        self.eddie_speed *= 2
+        self.laser_speed *= 2
+
+    def speed_shift_down(self):
+        self.f_speed /= 2
+        self.eddie_drop_speed /= 2
+        self.eddie_speed /= 2
+        self.laser_speed /= 2

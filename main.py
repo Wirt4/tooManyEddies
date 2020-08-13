@@ -77,7 +77,7 @@ class TooManyEddies:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._fire_laser()
             elif event.type == pygame.KEYDOWN:
-                    self._quit_game(event)
+                    self._const_events(event)
 
     def _check_play_button(self, mouse_pos):
         """starts a new game when player clicks button"""
@@ -135,16 +135,20 @@ class TooManyEddies:
         """checks for events outside of game loop"""
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                self._quit_game(event)
+                self._const_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
 
-    def _quit_game(self, event):
+    def _const_events(self, event):
         """exits game based on keystroke"""
         if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             sys.exit()
-        elif event.key ==pygame.K_p:
+        elif event.key == pygame.K_RIGHT:
+            self.settings.speed_shift_up()
+        elif event.key == pygame.K_LEFT:
+            self.settings.speed_shift_down()
+        elif event.key == pygame.K_p:
             self.paused = False if self.paused else True
 
 

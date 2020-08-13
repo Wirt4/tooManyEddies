@@ -45,8 +45,8 @@ class Scoreboard:
         q_msg = "press 'q' to quit"
         self.q_msg_img = self.font.render(q_msg, True, self.text_color, self.settings.bg_color)
         self.q_msg_rect =self.q_msg_img.get_rect()
-        self.q_msg_rect.left = self.screen_rect.left
-        self.q_msg_rect.bottom = self.screen_rect.bottom
+        self.q_msg_rect.right = self.score_rect.right
+        self.q_msg_rect.top = self.level_rect.bottom + self.settings.icon_margin
 
     def prep_score(self):
         """creates a rendered score from data"""
