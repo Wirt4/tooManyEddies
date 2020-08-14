@@ -8,6 +8,7 @@ from stats import Stats
 from time import sleep
 from button import Button
 from scoreboard import Scoreboard
+import random
 
 class TooManyEddies:
     """overall class to manage assets and behavior"""
@@ -24,9 +25,12 @@ class TooManyEddies:
         self.lasers = pygame.sprite.Group()
         self.eddies = pygame.sprite.Group()
         self._create_horde()
-        self.play_button = Button(self)
+        self.play_button = Button(self, random.choice(self.settings.button_messages))
+        self.pause_button = Button(self, "paused")
+        self.title_button = Button(self, random.choice(self.settings.button_messages))
         self.scoreboard = Scoreboard(self)
         self.paused = False
+        self.title_card = False
 
     def _start_level(self):
         self.lasers.empty()
@@ -84,7 +88,7 @@ class TooManyEddies:
         clicked = self.play_button.rect.collidepoint(mouse_pos)
         if clicked and not self.stats.game_active:
             self._start_game()
-            self.play_button = Button(self)
+            #self.play_button = Button(self)
 
     def _eddie_at_bottom(self):
         """Checks if eddie has reached the bottom of the screen and will RUIN Frasier's new persian rug"""
@@ -104,6 +108,8 @@ class TooManyEddies:
             laser.draw_laser()
         if not self.stats.game_active:
             self.play_button.draw_button()
+        # if self.title_card:
+        #     self.title_button.draw_button()
         pygame.display.flip()
 
     def _check_horde_edges(self):
@@ -151,7 +157,6 @@ class TooManyEddies:
         elif event.key == pygame.K_p:
             self.paused = False if self.paused else True
 
-
     def update_eddies(self):
         """checks if eddie horde hits edge of screen, then updates position of all eddies"""
         self._check_horde_edges()
@@ -176,9 +181,18 @@ class TooManyEddies:
             self.scoreboard.prep_score()
             #self.scoreboard.check_high_score()
         if not self.eddies:
+            self.show_title_card()
             self.settings.increase_speed()
             self.stats.level += 1
             self._start_level()
+
+    def show_title_card(self):
+        card = Button(self, random.choice(self.settings.button_messages))
+        card.draw_button()
+        sleep(1)
+
+
+
 
     def _start_game(self):
         """starts a new game"""

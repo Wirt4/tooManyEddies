@@ -10,7 +10,7 @@ class Settings:
         self.f_limit = 2
         #will eventually refactor laser to be a graphical pair of beams
         self.laser_color = (255, 0, 0) # want red
-        self.laser_capacity = 3
+        self.laser_capacity = 5
         self.laser_height = 200
         #eddie settings
         self.eddie_drop_speed = 10
@@ -33,7 +33,8 @@ class Settings:
                                 "Send in the hounds", "A most unusual talent", "It's from his mother's side",
                                 "Jack Russell terror", "les chiens de l’enfer ", "The ultimate space invader",
                                 "Many Eddies", "dog :1, man: 0", "Charybdis", "What until you see his ears",
-                                "Where is your god now?", "Tossed Salads and Scrambled Eddies", ]
+                                "Where is your god now?", "Tossed Salads and Scrambled Eddies",
+                                "click to play if you must"]
 
 
     def _get_img_size(self, img_name):
@@ -59,8 +60,8 @@ class Settings:
 
         self.eddie_size = self._shrink_tuple(self.eddie_size)
         self.frasier_size = self._shrink_tuple(self.frasier_size)
-        self.laser_size = self._shrink_tuple(self.frasier_size)
-        self.laser_height = self._shrink(self.laser_height)
+        self.laser_size = (int(self.laser_size[0] *self.shrink_factor),  int(self.laser_size[1] * self.shrink_factor))
+        self.laser_height = self._shrink(self.laser_height) * self.laser_accelerate
         self.laser_offset = self._shrink(self.laser_offset)
 
         self.eddie_points = int(self.eddie_points* self.score_scale)

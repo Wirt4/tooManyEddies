@@ -42,16 +42,16 @@ class Scoreboard:
 
     def prep_q_msg(self):
         """creates a rendered quit message"""
-        q_msg = "press 'q' to quit"
+        q_msg = "'Q' TO QUIT"
         self.q_msg_img = self.font.render(q_msg, True, self.text_color, self.settings.bg_color)
         self.q_msg_rect =self.q_msg_img.get_rect()
         self.q_msg_rect.right = self.score_rect.right
-        self.q_msg_rect.top = self.level_rect.bottom + self.settings.icon_margin
+        self.q_msg_rect.top = self.score_rect.bottom + self.settings.icon_margin
 
     def prep_score(self):
         """creates a rendered score from data"""
         rounded_score = round(self.stats.score, -1)
-        score_str = "Current Score: " + "{:,}".format(rounded_score)
+        score_str = "{:,}".format(rounded_score)
         self.score_image = self.font.render(score_str, True, self.text_color, self.settings.bg_color)
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
@@ -61,7 +61,7 @@ class Scoreboard:
         """draws rendered score and lives on screen"""
         self.screen.blit(self.score_image, self.score_rect)
         #self.screen.blit(self.high_score_image, self.high_score_rect)
-        self.screen.blit(self.level_image, self.level_rect)
+        #self.screen.blit(self.level_image, self.level_rect)
         self.frasiers.draw(self.screen)
         self.screen.blit(self.q_msg_img, self.q_msg_rect)
 
@@ -73,7 +73,7 @@ class Scoreboard:
 
     def prep_level(self):
         """turn level into rendered image"""
-        level_str = "Level " + str(self.stats.level)
+        level_str = "LEVEL " + str(self.stats.level)
         self.level_image = self.font.render(level_str, True, self.text_color, self.settings.bg_color)
         self.level_rect = self.level_image.get_rect()
         self.level_rect.right = self.score_rect.right

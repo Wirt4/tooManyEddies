@@ -1,9 +1,9 @@
 import pygame.font
-import random
+
 
 class Button:
 
-    def __init__(self, tme_game):
+    def __init__(self, tme_game, msg):
         """intialize all button attributes"""
         self.screen = tme_game.screen
         self.settings = tme_game.settings
@@ -13,7 +13,7 @@ class Button:
         self.font = pygame.font.SysFont(self.settings.font, self.settings.score_font_size)
         self.rect = pygame.Rect(0, 0, self.screen_rect.width, self.screen_rect.height)
         self.rect.center = self.screen_rect.center
-        self._prep_msg(random.choice(self.settings.button_messages).upper())
+        self._prep_msg(msg.upper())
 
     def _prep_msg(self, msg):
         """turns msg into renderd screen image, centers text on button"""
@@ -24,6 +24,8 @@ class Button:
     def draw_button(self):
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_img, self.msg_img_rect)
+
+
 
 
     #might like a fade-out function here, can call when is clicked
