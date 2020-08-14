@@ -1,18 +1,18 @@
 import pygame
 from pygame.sprite import Sprite
-
+import os
 class Eddie(Sprite):
     """initilizes an eddie sprite, size is a tuple"""
     def __init__(self, tme_game, size):
         super().__init__()
+        self.settings = tme_game.settings
         self.screen = tme_game.screen
-        self.image = pygame.image.load('images/eddie.bmp')
+        self.image = pygame.image.load(os.path.join(self.settings.image_folder_path, 'eddie.bmp'))
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height 
         self.x = float(self.rect.x)
-        self.settings = tme_game.settings
 
     def update(self):
         """Move Eddie right or left"""

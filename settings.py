@@ -1,5 +1,6 @@
 import pygame
-import random
+import sys
+import os
 class Settings:
     def __init__(self):
         self.screen_width = 1536
@@ -18,6 +19,7 @@ class Settings:
         self.eddie_accelerate = 1.2
         self.laser_accelerate = 1.1
         self.score_scale = 1.5
+        self.image_folder_path = self.initialize_path()
         self.initialize_dynamic_settings()
         #can initialize an event drop rate here
         #self.font ="Times New Roman"
@@ -30,21 +32,22 @@ class Settings:
         self.button_messages = ["PERSIAN RUG, WE HARDLY KNEW YE", "NO, BAD EDDIE", "NO, BAD FRASIER", "Apotheosis",
                                 "Send in the hounds", "A most unusual talent", "It's from his mother's side",
                                 "Jack Russell terror", "les chiens de l’enfer ", "The ultimate space invader",
-                                "'Many Eddies", "dog :1, man: 0"]
-        #would like sounds, but are nice to haves
-        #self.laser_sound = pygame.mixer.Sound('sounds/laser.wav')
-        #self.boom_sound = pygame.mixer.Sound('sounds/boom.wav')
+                                "'Many Eddies", "dog :1, man: 0", ""]
+
+
+    def _get_img_size(self, img_name):
+        img = pygame.image.load(os.path.join(self.image_folder_path, img_name))
+        return img.get_rect().size
 
     def initialize_dynamic_settings(self):
         self.eddie_speed = 2.0
-        self.eddie_size = pygame.image.load('images/eddie.bmp').get_rect().size
-        self.frasier_size = pygame.image.load('images/frasier.bmp').get_rect().size
-        self.laser_size = pygame.image.load('images/lasers.bmp').get_rect().size
+        self.eddie_size = self._get_img_size('eddie.bmp')
+        self.frasier_size = self._get_img_size('frasier.bmp')
+        self.laser_size = self._get_img_size('lasers.bmp')
         self.laser_height = 200
         self.laser_offset = 17
         self.eddie_points= 50
         self.laser_speed = 2.0
-
 
     def increase_speed(self):
         if self.eddie_speed < 0:
@@ -78,3 +81,11 @@ class Settings:
         self.eddie_drop_speed /= 2
         self.eddie_speed /= 2
         self.laser_speed /= 2
+
+    def initialize_path(self):
+        if getattr(sys, 'frozen', False):
+            CurrentPath = sys._MEIPASS
+        else:
+            CurrentPath = os.path.dirname(__file__)
+        return  os.path.join(CurrentPath, 'images')
+

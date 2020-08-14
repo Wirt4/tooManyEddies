@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-
+import os
 
 class Laser(Sprite):
 
@@ -9,11 +9,8 @@ class Laser(Sprite):
         super().__init__()
         self.screen = tme_game.screen
         self.settings = tme_game.settings
-        #self.color = self.settings.laser_color
-        #self.rect = pygame.Rect(0, 0, self.settings.laser_width, self.settings.laser_height)
-
-        #the below will eventually go when beams are converted to rects
-        self.image = pygame.image.load('images/lasers.bmp')
+        #self.image = pygame.image.load('images/lasers.bmp')
+        self.image = pygame.image.load(os.path.join(self.settings.image_folder_path, 'lasers.bmp'))
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width

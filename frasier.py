@@ -1,13 +1,14 @@
 import pygame
 from pygame.sprite import Sprite
+import os
 
 class Frasier(Sprite):
     def __init__(self, tme_game, size):
         super().__init__()
+        self.settings = tme_game.settings
         self.screen = tme_game.screen
         self.screen_rect = tme_game.screen.get_rect()
-        self.image = pygame.image.load('images/frasier.bmp')
-        self.settings = tme_game.settings
+        self.image = pygame.image.load(os.path.join(self.settings.image_folder_path, 'frasier.bmp'))
         self.update_size(size)
 
     def update(self):
