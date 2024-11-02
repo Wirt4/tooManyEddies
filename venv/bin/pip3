@@ -1,4 +1,4 @@
-#!/home/wirt/PycharmProjects/too_many_eddies/venv/bin/python
+#!/Users/wirtsalthouse/PycharmProjects/tooManyEddies/venv/bin/python3.9
 # -*- coding: utf-8 -*-
 import re
 import sys

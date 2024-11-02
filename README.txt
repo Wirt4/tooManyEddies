@@ -1,5 +1,12 @@
 Too Many Eddies: A Frasier Parody
+#Requirments#
+Uses venv, so will need to run the venv with `source venv/bin/activate` on mac/linux or 'venv\Scripts\activate
+' on windows.
 
+Once the venv is activated, start the game with `python3 main.py`.
+
+
+#Play#
 Story:
 	Frasier's nemesis and perpetual space invader, Eddie. Has had too much lemonade and his eye on Dr Crane's new Persian Rug. Hold him off with your psychiatric heat beams for as long as possible.
 
@@ -9,6 +16,3 @@ Controls:
 	'q' or 'esc' to quit
 	'p' to pause
     left arrow to slow game speed, right arrow to speed up: different processors run at drasitically different paces
-
-Requirements:
-	Game is built in Python 3 and Pygame. You'll need to have both on your system to run it. To run game, execute main.py
