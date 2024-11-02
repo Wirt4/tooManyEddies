@@ -15,4 +15,4 @@ Controls:
 	Mouse button to fire
 	'q' or 'esc' to quit
 	'p' to pause
-    left arrow to slow game speed, right arrow to speed up: different processors run at drasitically different paces
+    left arrow to slow game speed, right arrow to speed up: different processors run at different paces
