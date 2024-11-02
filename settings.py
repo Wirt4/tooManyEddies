@@ -1,6 +1,8 @@
 import pygame
 import sys
 import os
+
+
 class Settings:
     def __init__(self):
         self.screen_width = 1536
@@ -8,11 +10,11 @@ class Settings:
         self.bg_color = (0, 0, 0)
         self.f_speed = 0.25
         self.f_limit = 2
-        #will eventually refactor laser to be a graphical pair of beams
-        self.laser_color = (255, 0, 0) # want red
+        # will eventually refactor laser to be a graphical pair of beams
+        self.laser_color = (255, 0, 0)  # want red
         self.laser_capacity = 2
         self.laser_height = 200
-        #eddie settings
+        # eddie settings
         self.eddie_drop_speed = 10
         self.eddie_dir = 1
         self.shrink_factor = 0.9
@@ -21,8 +23,7 @@ class Settings:
         self.score_scale = 1.5
         self.image_folder_path = self.initialize_path()
         self.initialize_dynamic_settings()
-        #can initialize an event drop rate here
-        #self.font ="Times New Roman"
+        # can initialize an event drop rate here
         self.font = "Times New Roman"
         self.score_font_size = 48
         self.text_color = (255, 255, 255)
@@ -36,7 +37,6 @@ class Settings:
                                 "Where is your god now?", "Tossed Salads and Scrambled Eddies",
                                 "click to play if you must", "Dogpocalypse"]
 
-
     def _get_img_size(self, img_name):
         img = pygame.image.load(os.path.join(self.image_folder_path, img_name))
         return img.get_rect().size
@@ -48,7 +48,7 @@ class Settings:
         self.laser_size = self._get_img_size('lasers.bmp')
         self.laser_height = 200
         self.laser_offset = 17
-        self.eddie_points= 50
+        self.eddie_points = 50
         self.laser_speed = 2.0
 
     def increase_speed(self):
@@ -60,17 +60,18 @@ class Settings:
 
         self.eddie_size = self._shrink_tuple(self.eddie_size)
         self.frasier_size = self._shrink_tuple(self.frasier_size)
-        self.laser_size = (int(self.laser_size[0] *self.shrink_factor),  int(self.laser_size[1] * self.shrink_factor))
+        self.laser_size = (int(self.laser_size[0] * self.shrink_factor), int(self.laser_size[1] * self.shrink_factor))
         self.laser_height = self._shrink(self.laser_height)
         self.laser_offset = self._shrink(self.laser_offset)
 
-        self.eddie_points = int(self.eddie_points* self.score_scale)
-        #would be great if frasier and his eye lasers got proportionaltely smaller
+        self.eddie_points = int(self.eddie_points * self.score_scale)
+        # would be great if frasier and his eye lasers got proportionaltely smaller
+
     def _shrink(self, number):
         return int(number * self.shrink_factor)
 
     def _shrink_tuple(self, size):
-        return (int(size[0] *self.shrink_factor),  int(size[1] * self.shrink_factor))
+        return (int(size[0] * self.shrink_factor), int(size[1] * self.shrink_factor))
 
     def speed_shift_up(self):
         self.f_speed *= 2
@@ -89,5 +90,4 @@ class Settings:
             CurrentPath = sys._MEIPASS
         else:
             CurrentPath = os.path.dirname(__file__)
-        return  os.path.join(CurrentPath, 'images')
-
+        return os.path.join(CurrentPath, 'images')
