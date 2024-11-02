@@ -1,8 +1,11 @@
 import pygame
 from pygame.sprite import Sprite
 import os
+
+
 class Eddie(Sprite):
     """initilizes an eddie sprite, size is a tuple"""
+
     def __init__(self, tme_game, size):
         super().__init__()
         self.settings = tme_game.settings
@@ -11,7 +14,7 @@ class Eddie(Sprite):
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
-        self.rect.y = self.rect.height 
+        self.rect.y = self.rect.height
         self.x = float(self.rect.x)
 
     def update(self):
