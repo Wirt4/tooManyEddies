@@ -32,9 +32,9 @@ class Settings:
         self.button_messages = ["PERSIAN RUG, WE HARDLY KNEW YE", "NO, BAD EDDIE", "NO, BAD FRASIER", "Apotheosis",
                                 "Send in the hounds", "A most unusual talent", "It's from his mother's side",
                                 "Jack Russell terror", "les chiens de l’enfer ", "The ultimate space invader",
-                                "Many Eddies", "dog :1, man: 0", "Charybdis", "What until you see his ears",
+                                "Many Eddies", "dog :1, man: 0", "Charybdis", "Wait until you see his ears",
                                 "Where is your god now?", "Tossed Salads and Scrambled Eddies",
-                                "click to play if you must", "dogpocalypse"]
+                                "click to play if you must", "Dogpocalypse"]
 
 
     def _get_img_size(self, img_name):
